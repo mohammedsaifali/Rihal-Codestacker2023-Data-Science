@@ -4,35 +4,13 @@ import cv2
 from PIL import Image
 import torch
 import tensorflow as tf
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
-import torchvision.transforms as transforms
+import os
+
+current_path = os.getcwd()
+model_path = os.path.join(current_path, 'static\model_denoise.h5')
 
 
-class DenoisingAutoencoder(nn.Module):
-    def __init__(self):
-        super(DenoisingAutoencoder, self).__init__()
 
-        self.encoder = nn.Sequential(
-            nn.Conv2d(1, 64, 3, padding=1),
-            nn.ReLU(),
-            nn.BatchNorm2d(64),
-            nn.Conv2d(64, 64, 3, padding=1),
-            nn.ReLU(),
-            nn.BatchNorm2d(64)
-        )
-
-        self.decoder = nn.Sequential(
-            nn.Conv2d(64, 1, 3, padding=1),
-            nn.Sigmoid()
-        )
-
-    def forward(self, x):
-        x = self.encoder(x)
-        x = self.decoder(x)
-        return x
 # Import or define the necessary functions, classes, and models here
 # e.g. load_images, DenoisingDataset, DenoisingAutoencoder, create_model, etc.
 
@@ -63,7 +41,7 @@ if uploaded_file is not None:
     img_input = np.expand_dims(img_input, axis=0)
 
         # Load the TensorFlow model
-    best_model = tf.keras.models.load_model("model_denoise.h5")
+    best_model = tf.keras.models.load_model("static\model_denoise.h5")
     predicted_img = best_model.predict(img_input)
 
     predicted_img = predicted_img.reshape(256, 256)
