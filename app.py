@@ -42,7 +42,7 @@ if uploaded_file is not None:
 
         # Load the TensorFlow model
     best_model = tf.keras.models.load_model("static\model_denoise.h5")
-    predicted_img = best_model.predict(img_input)import streamlit as st
+    predicted_img = best_model.predict(img_input)
 
 import numpy as np
 import cv2
